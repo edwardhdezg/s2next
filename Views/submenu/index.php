@@ -154,9 +154,15 @@
             url:"http://localhost/s2next/submenu/?marcas",
             success: function (data) {
                 var jsonMarcas = JSON.parse(data);
-                jsonMarcas.forEach(function(item) {
-                    selectDropdownMarcas.innerHTML+='<li><a class="dropdown-item opcion" href="#" data-parametro="'+item.descripcion_sub_menu+'">'+item.nombre_sub_menu+'</a></li>';
-                });   
+                if(jsonMarcas.length > 1){
+                    jsonMarcas.forEach(function(item) {
+                        selectDropdownMarcas.innerHTML+='<li><a class="dropdown-item opcion" href="#" data-parametro="'+item.descripcion_sub_menu+'">'+item.nombre_sub_menu+'</a></li>';
+                    });
+                }     
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("Error: " + textStatus + " " + errorThrown);
+                //You can also generate a specific error code here
             }
     });
     $.ajax({
@@ -164,9 +170,11 @@
             url:"http://localhost/s2next/submenu/?catalogos",
             success: function (data) {
                 var jsonCatalogos = JSON.parse(data);
-                jsonCatalogos.forEach(function(item) {
-                    selectDropdownCatalogos.innerHTML+='<li><a class="dropdown-item opcion" href="#" data-parametro="'+item.descripcion_sub_menu+'">'+item.nombre_sub_menu+'</a></li>';
-                });   
+                if(jsonCatalogos.length > 1){
+                    jsonCatalogos.forEach(function(item) {
+                        selectDropdownCatalogos.innerHTML+='<li><a class="dropdown-item opcion" href="#" data-parametro="'+item.descripcion_sub_menu+'">'+item.nombre_sub_menu+'</a></li>';
+                    });  
+                } 
             }
     });
     $(document).on("click", ".opcion", function(event) {
