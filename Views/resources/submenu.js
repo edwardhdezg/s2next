@@ -66,10 +66,13 @@ $.ajax({
         url:"http://localhost/s2next/submenu/?marcas",
         success: function (data) {
             var jsonMarcas = JSON.parse(data);
-            if(jsonMarcas.length > 1){
+            if(jsonMarcas.length >=1){
                 jsonMarcas.forEach(function(item) {
+                    console.log(item.descripcion_sub_menu);
                     selectDropdownMarcas.innerHTML+='<li><a class="dropdown-item opcion" href="#" data-parametro="'+item.descripcion_sub_menu+'">'+item.nombre_sub_menu+'</a></li>';
                 });
+            }else{
+                selectDropdownMarcas.innerHTML+='<li><a class="dropdown-item" href="#">No hay datos</a></li>';
             }     
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -81,14 +84,16 @@ $.ajax({
         type: "GET",
         url:"http://localhost/s2next/submenu/?catalogos",
         success: function (data) {
-            var jsonCatalogos = JSON.parse(data);
-            if(jsonCatalogos.length > 1){
+            let jsonCatalogos=JSON.parse(data);
+            if(jsonCatalogos.length >= 1){
                 jsonCatalogos.forEach(function(item) {
                     selectDropdownCatalogos.innerHTML+='<li><a class="dropdown-item opcion" href="#" data-parametro="'+item.descripcion_sub_menu+'">'+item.nombre_sub_menu+'</a></li>';
                 });  
-            } 
+            }else{
+                selectDropdownCatalogos.innerHTML+='<li><a class="dropdown-item" href="#">No hay datos</a></li>';
+            }
         }
-});
+});  
 $(document).on("click", ".opcion", function(event) {
     let divCaja= document.getElementById('divCaja');
     let parametro = event.target.getAttribute("data-parametro");

@@ -81,7 +81,7 @@ class Padre{
             $checkExist->bindParam(':nombre_menu_padre', $this->nombre_menu_padre);
             $checkExist->execute();
             if ($checkExist->fetchColumn() > 0) {
-                return json_encode(["Error" => "El registro ya existe en la BD."]);
+                return http_response_code(404);
             }else{
                
                 try {

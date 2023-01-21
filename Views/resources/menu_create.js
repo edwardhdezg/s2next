@@ -25,14 +25,20 @@ $("#formulario").validate({
             }),
             contentType: "application/json",
             success: function(data) {
-                console.log(data);
                 alert("Datos agregados correctamente");
                 location.href = 'http://localhost/s2next/Views/menu/';
                 
             },
             error: function(error) {
-                console.log(error);
-                alert("Ha ocurrido un error al enviar la petición");
+                let statusCode = error.status;
+                if (statusCode === 404) {
+                    alert("Error: el registro ya existe");
+                }else if(statusCode === 500){
+                    console.log("Internal Server Error");
+                }else{
+                    alert("Ha ocurrido un error al enviar la petición");
+                }
+               
             }
           });
       }
